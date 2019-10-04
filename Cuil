@@ -1,0 +1,72 @@
+package ar.edu.uno.Clase.Cuil;
+
+public class Cuil {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Cuil a = new Cuil("32244531","20",9);
+		System.out.println(a.calcuCod_ver());
+		System.out.println(a.verificar());
+		System.out.println(a);
+	}
+	
+	private String dni;
+	private String prefijo;
+	static final String SERIE="5432765432";
+	private int cod_ver;
+	
+	public Cuil(String dni, String prefijo,int cod_ver ) {
+		this.setDni(dni);
+		this.setPrefijo(prefijo);
+		this.setCod_ver(cod_ver);
+	}
+	
+	private int calcuAux1() {
+		String palabra;
+		int aux=0;
+		palabra=this.getPrefijo().concat(this.getDni());
+		for(int i=0;i<palabra.length();i++) {
+			int a = Character.getNumericValue(palabra.charAt(i));
+			int b = Character.getNumericValue(SERIE.charAt(i));
+			aux = aux + (a * b);
+		}
+		return aux;
+	}
+	
+	private int calcuAux2() {
+		return this.calcuAux1()%11;
+	}
+	
+	public int calcuCod_ver() {
+		return 11-this.calcuAux2();
+	}
+	
+	public boolean verificar() {
+		if(this.calcuCod_ver()==this.getCod_ver()) return true;
+		return false;
+	}
+	
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getPrefijo() {
+		return prefijo;
+	}
+	public void setPrefijo(String prefijo) {
+		this.prefijo = prefijo;
+	}
+	public int getCod_ver() {
+		return cod_ver;
+	}
+	public void setCod_ver(int cod_ver) {
+		this.cod_ver = cod_ver;
+	}
+
+	@Override
+	public String toString() {
+		return "Cuil [dni=" + dni + ", prefijo=" + prefijo + ", cod_ver=" + cod_ver + "]";
+	}
+}
