@@ -1,0 +1,39 @@
+package ar.edu.uno.Clase.Cuil;
+import java.io.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+
+public class Leer {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		String miPath = "\\Users\\walda\\Desktop\\";
+		String path = "\\Users\\walda\\Desktop\\";
+		Scanner sc = new Scanner(new File(miPath+"Cuil.txt"));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(path+"Cuil.out.txt"));
+		ArrayList <Cuil> l = new ArrayList<Cuil>();
+		//String value2 = sc.nextLine();
+		Cuil a = new Cuil();
+		while(sc.hasNextLine()) {
+			String value=sc.nextLine();
+			a.setDni(value.substring(0,8));
+			a.setPrefijo(value.substring(8,10));
+			a.setCod_ver(Integer.valueOf(value.substring(10,11)));
+			l.add(a);
+			if(a.verificar()) {
+				bw.write(a+"Correcto");
+				bw.newLine();
+			}
+			else {
+				bw.write(a+"Incorrecto, el Codigo es: "+a.calcuCod_ver());
+				bw.newLine();
+			}
+		}
+		sc.close();
+		bw.close();
+		System.out.println(l);
+	}
+
+}
